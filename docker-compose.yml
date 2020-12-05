@@ -1,0 +1,83 @@
+version: "3"
+
+networks:
+  backend:
+    external:
+      name: backend
+  frontend:
+    external:
+      name: frontend
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: donex_prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      #- prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+    ports:
+      - 9090:9090
+    links:
+    - cadvisor:cadvisor
+    depends_on:
+      - cadvisor
+    networks:
+      - backend
+    restart: always
+
+  nodeexporter:
+    image: prom/node-exporter
+    container_name: donex_nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    ports:
+      - 9100:9100
+    networks:
+      - backend
+    restart: always
+
+  cadvisor:
+    image: google/cadvisor
+    container_name: donex_cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: donex_grafana
+    depends_on:
+      - prometheus
+    container_name: donex_grafana
+    volumes:
+      #- grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GRAFANA_ADMIN_USER=${GRAFANA_USER}
+      - GRAFANA_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GRAFANA_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - backend
+      - frontend
