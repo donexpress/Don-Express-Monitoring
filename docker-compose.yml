@@ -1,16 +1,13 @@
 version: "3"
 
 networks:
-  backend:
+  monitoring:
     external:
-      name: backend
-  frontend:
-    external:
-      name: frontend
+      name: monitoring
 
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v2.23.0
     container_name: donex_prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
@@ -27,11 +24,11 @@ services:
     depends_on:
       - cadvisor
     networks:
-      - backend
+      - monitoring
     restart: always
 
   nodeexporter:
-    image: prom/node-exporter
+    image: prom/node-exporter:v1.0.1
     container_name: donex_nodeexporter
     volumes:
       - /proc:/host/proc:ro
@@ -45,11 +42,11 @@ services:
     ports:
       - 9100:9100
     networks:
-      - backend
+      - monitoring
     restart: always
 
   cadvisor:
-    image: google/cadvisor
+    image: google/cadvisor:v0.33.0
     container_name: donex_cadvisor
     volumes:
       - /:/rootfs:ro
@@ -59,11 +56,11 @@ services:
     ports:
       - 8080:8080
     networks:
-      - backend
+      - monitoring
     restart: always
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:7.3.4
     container_name: donex_grafana
     depends_on:
       - prometheus
@@ -79,5 +76,4 @@ services:
     ports:
       - 3000:3000
     networks:
-      - backend
-      - frontend
+      - monitoring
