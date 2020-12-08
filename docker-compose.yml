@@ -76,8 +76,8 @@ services:
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
-      - GRAFANA_ADMIN_USER=${GRAFANA_USER}
-      - GRAFANA_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GRAFANA_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
     ports:
