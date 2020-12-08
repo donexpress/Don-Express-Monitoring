@@ -73,6 +73,7 @@ services:
     container_name: donex_grafana
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GRAFANA_ADMIN_USER=${GRAFANA_USER}
@@ -85,6 +86,15 @@ services:
       - monitoring
     labels:
       org.label-schema.group: "monitoring"
+  
+  nginx: 
+    image: nginx:latest
+    container_name: donex_nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certs/full-fullchain.pem:/etc/ssl/full-fullchain.pem
+      - ./certs/full-privkey.pem:/etc/ssl/full-privkey.pem
+      #- /etc/letsencrypt/:/etc/letsencrypt/
 
 volumes: 
   grafana_data:

@@ -1,2 +1,2 @@
-GRAFANA_USER=donexpress
-GRAFANA_PASSWORD=donexpress
+GF_ADMIN_USER=donexpress
+GF_ADMIN_PASSWORD=donexpress
