@@ -75,6 +75,8 @@ services:
       - grafana_data:/var/lib/grafana
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./certs/full-fullchain.pem:/etc/ssl/full-fullchain.pem
+      - ./certs/full-privkey.pem:/etc/ssl/full-privkey.pem
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
@@ -94,7 +96,10 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./certs/full-fullchain.pem:/etc/ssl/full-fullchain.pem
       - ./certs/full-privkey.pem:/etc/ssl/full-privkey.pem
-      #- /etc/letsencrypt/:/etc/letsencrypt/
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
 
 volumes: 
   grafana_data:
