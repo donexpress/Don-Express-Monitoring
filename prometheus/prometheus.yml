@@ -11,33 +11,32 @@ global:
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 #rule_files:
-  #- "alert.rules"
-  # - "first.rules"
-  # - "second.rules"
+#- "alert.rules"
+# - "first.rules"
+# - "second.rules"
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     scrape_interval: 10s
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ["localhost:9090"]
 
-  - job_name: 'nginx'
+  - job_name: "nginx_dc0"
     scrape_interval: 10s
     tls_config:
       insecure_skip_verify: true
     static_configs:
-      - targets: ['10.8.119.242:9910']
-  
-  - job_name: 'docker_dc0'
+      - targets: ["172.20.254.184:9910"]
+
+  - job_name: "docker_dc0"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     scrape_interval: 10s
     static_configs:
-      - targets: ['172.20.254.184:9090']
-
+      - targets: ["172.20.254.184:9090"]
 #alerting:
-  #alertmanagers:
-  #- scheme: http
-    #static_configs:
-    #- targets: 
-      #- 'localhost:9093'
+#alertmanagers:
+#- scheme: http
+#static_configs:
+#- targets:
+#- 'localhost:9093'
