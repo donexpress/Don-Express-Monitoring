@@ -26,14 +26,14 @@ scrape_configs:
     #tls_config:
       #insecure_skip_verify: true
     static_configs:
-      - targets: ["172.20.254.184:9910"]
+      - targets: [172.20.254.184:9910]
 
   - job_name: "docker"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     scrape_interval: 10s
     static_configs:
-      - targets: ["172.20.254.184:9090"]
+      - targets: [172.20.254.184:9090]
 #alerting:
 #alertmanagers:
 #- scheme: http
