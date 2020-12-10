@@ -23,8 +23,8 @@ scrape_configs:
 
   - job_name: "dc0"
     scrape_interval: 10s
-    tls_config:
-      insecure_skip_verify: true
+    #tls_config:
+      #insecure_skip_verify: true
     static_configs:
       - targets: ["172.20.254.184:9910", "172.20.254.184:9090"]
 
