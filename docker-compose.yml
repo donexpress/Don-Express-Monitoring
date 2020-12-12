@@ -38,7 +38,7 @@ services:
     entrypoint:
     - /usr/bin/exporter
     - -nginx.scrape-uri
-    - http://172.20.254.185:9910/metrics
+    - http://172.20.254.184:9910/metrics
     container_name: donex_nginx_prometheus
 
   nodeexporter:
