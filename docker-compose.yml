@@ -33,6 +33,8 @@ services:
     image: nginx/nginx-prometheus-exporter:0.8.0
     ports:
     - "9113:9113"
+    environment: 
+    - NP_EXPORTER=${NP_EXPORTER}
     entrypoint:
     - /usr/bin/exporter
     - -nginx.scrape-uri
