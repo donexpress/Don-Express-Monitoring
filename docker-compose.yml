@@ -29,6 +29,16 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  prometheusexporter:
+    image: nginx/nginx-prometheus-exporter:0.8.0
+    ports:
+    - "9113:9113"
+    entrypoint:
+    - /usr/bin/exporter
+    - -nginx.scrape-uri
+    - http://${NP_EXPORTER}/metrics
+    container_name: donex_nginx_prometheus
+
   nodeexporter:
     image: prom/node-exporter:v0.18.1
     container_name: donex_nodeexporter
