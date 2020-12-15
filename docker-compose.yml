@@ -36,7 +36,7 @@ services:
     entrypoint:
     - /usr/bin/exporter
     - -nginx.scrape-uri
-    - http://${PRODUCTION_NP_EXPORTER_HOST}/metrics
+    - http://"${PRODUCTION_NP_EXPORTER_HOST}"/metrics
     container_name: donex_nginx_prometheus
 
   nodeexporter:
