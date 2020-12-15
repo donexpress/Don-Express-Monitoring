@@ -33,12 +33,10 @@ services:
     image: nginx/nginx-prometheus-exporter:0.8.0
     ports:
     - "9113:9113"
-    environment: 
-    - NP_EXPORTER=${NP_EXPORTER}
     entrypoint:
     - /usr/bin/exporter
     - -nginx.scrape-uri
-    - http://172.20.254.184:9910/metrics
+    - http://${PRODUCTION_NP_EXPORTER_HOST}/metrics
     container_name: donex_nginx_prometheus
 
   nodeexporter:
