@@ -109,8 +109,19 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    restart: unless-stopped
+  
+  nginx-exporter:
+    image: ndiazg/nginx-prometheus-exporter:latest
+    container_name: donex_nginx_logs
+    command: /usr/local/bin/mtail -v=2 -logtostderr -port 3093 -progs /mtail/progs -logs /var/log/nginx/access.log
+    ports:
+      - '3093:3093'
+    volumes:
+      - nginx_data:/var/log/nginx:ro
     restart: always
 
 volumes: 
   grafana_data:
   prometheus_data:
+  nginx_data:
