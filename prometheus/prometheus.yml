@@ -52,7 +52,7 @@ scrape_configs:
     #tls_config:
       #insecure_skip_verify: true
     static_configs:
-      - targets: ["10.8.119.242:3093"]
+      - targets: ["172.20.254.184:3093"]
 
   #- job_name: "staging_docker"
     #scrape_interval: 10s
