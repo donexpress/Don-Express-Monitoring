@@ -47,6 +47,20 @@ scrape_configs:
     static_configs:
       - targets: ["172.20.254.182:9090"]
 
+  - job_name: "nginx_logs"
+    scrape_interval: 10s
+    #tls_config:
+      #insecure_skip_verify: true
+    static_configs:
+      - targets: ["10.8.119.242:3093"]
+
+  #- job_name: "staging_docker"
+    #scrape_interval: 10s
+    #tls_config:
+      #insecure_skip_verify: true
+    #static_configs:
+      #- targets: ["172.20.254.172:9090"]
+
   #- job_name: "staging"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
