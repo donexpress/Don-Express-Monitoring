@@ -26,26 +26,41 @@ scrape_configs:
     static_configs:
       - targets: ["172.20.254.185:9113"]
 
+  - job_name: "dc0-nginx-logs"
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["$DC0_CLUSTER_IP:$DC0_NGINX_LOGS_PORT"]
+
+  - job_name: "stg-nginx-logs"
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["$STG_CLUSTER_IP:$STG_NGINX_LOGS_PORT"]
+
+  - job_name: "prod-nginx-logs"
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["$PROD_CLUSTER_IP:$PROD_NGINX_LOGS_PORT"]
+
   - job_name: "dc0_docker"
     scrape_interval: 10s
     #tls_config:
       #insecure_skip_verify: true
     static_configs:
-      - targets: ["172.20.254.184:9090"]
+      - targets: ["$DC0_CLUSTER_IP:9090"]
 
   - job_name: "staging_docker"
     scrape_interval: 10s
     #tls_config:
       #insecure_skip_verify: true
     static_configs:
-      - targets: ["172.20.254.172:9090"]
+      - targets: ["$STG_CLUSTER_IP:9090"]
 
   - job_name: "production_docker"
     scrape_interval: 10s
     #tls_config:
       #insecure_skip_verify: true
     static_configs:
-      - targets: ["172.20.254.182:9090"]
+      - targets: ["$PROD_CLUSTER_IP:9090"]
 
   #- job_name: "staging"
     # metrics_path defaults to '/metrics'
