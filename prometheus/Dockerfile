@@ -2,12 +2,12 @@ FROM alpine:3.10.2
 
 RUN apk add gettext
 
-ARG dc0_nginx_logs_port
-ARG stg_nginx_logs_port
-ARG prod_nginx_logs_port
-ARG dc0_cluster_ip
-ARG stg_cluster_ip
-ARG prod_cluster_ip
+#ARG dc0_nginx_logs_port
+#ARG stg_nginx_logs_port
+#ARG prod_nginx_logs_port
+#ARG dc0_cluster_ip
+#ARG stg_cluster_ip
+#ARG prod_cluster_ip
 
 ENV DC0_NGINX_LOGS_PORT=$dc0_nginx_logs_port
 ENV STG_NGINX_LOGS_PORT=$stg_nginx_logs_port
